@@ -6,6 +6,3 @@ A web-based Wheel of Fortune app built with Django and JavaScript. Users can inp
 - Dynamic wheel generation.
 - Customizable name input.
 - Light and dark theme (coming soon).
-
-## Setup
-1. Clone the repository:
