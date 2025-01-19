@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheel of Fortune</title>
+    <link rel="stylesheet" href="/static/wheel_app/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Wheel of Fortune</h1>
+        <form id="names-form" method="post">
+            {% csrf_token %}
+            <label for="names">Enter Names (separated by commas):</label><br>
+            <textarea id="names" name="names" rows="5" placeholder="e.g:Alice, Bob, Charlie"></textarea><br>
+            <button type="button" id="generate-wheel">Generate Wheel</button>
+        </form>
+        <div id="wheel-container">
+            <canvas id="wheel" width="400" height="400"></canvas>
+        </div>
+        <button id="spin-wheel">Spin the Wheel</button>
+        <div id="result">
+            <h2>Winner: <span id="selected-name"></span></h2>
+        </div>
+    </div>
+
+    <script src="/static/wheel_app/js/wheel.js"></script>
+</body>
+</html>
