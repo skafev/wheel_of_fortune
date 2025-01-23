@@ -11,10 +11,28 @@
         <h1>Wheel of Fortune</h1>
         <form id="names-form" method="post">
             {% csrf_token %}
-            <label for="names">Enter Names (separated by commas):</label><br>
-            <textarea id="names" name="names" rows="5" placeholder="e.g:Alice, Bob, Charlie"></textarea><br>
+            <strong>Enter Names (separated by commas):</strong><br>
+            <textarea id="names" name="names" rows="3" placeholder="e.g:Alice, Bob, Charlie"></textarea><br>
             <button type="button" id="generate-wheel">Generate Wheel</button>
+
+            <div id="separator">
+                <strong>Or use the scrollbar</strong>
+            </div>
+            <div id="slider-container">
+                <label for="section-slider">Number of participants:</label>
+                <input
+                    type="range"
+                    id="section-slider"
+                    min="1"
+                    max="10"
+                    value="1"
+                    step="1"
+                    oninput="updateSectionCount(this.value)"
+                />
+                <span id="section-count-display">1</span>
+            </div>
         </form>
+
         <div id="wheel-container">
             <canvas id="wheel" width="400" height="400"></canvas>
         </div>

@@ -7,6 +7,7 @@ const resultDisplay = document.getElementById("selected-name");
 let names = []; // List of names
 let isSpinning = false; // Prevent multiple spins
 let currentAngle = 0; // Current rotation angle
+let numberOfSections = 1;
 
 // Add required styles to the document
 const style = document.createElement('style');
@@ -244,7 +245,7 @@ function drawWheel(names) {
         ctx.rotate(angle + arcSize / 2);
         ctx.textAlign = "center";
         ctx.rotate(Math.PI / 2);
-        ctx.fillStyle = "white";
+        ctx.fillStyle = 'black';
         ctx.font = "bold 14px Arial";
         ctx.fillText(names[i], 0, -160);
         ctx.restore();
@@ -256,6 +257,15 @@ function drawWheel(names) {
 function spinWheel() {
     // Check if there are any names and no duplicates before spinning
     if (isSpinning || names.length === 0) return;
+
+    const scrollbar = document.getElementById("section-slider");
+    const generateButton = document.getElementById("generate-wheel");
+
+    scrollbar.disabled = true;
+    scrollbar.classList.add("disabled");
+
+    generateButton.disabled = true;
+    generateButton.classList.add("disabled");
 
     isSpinning = true;
     let spinSpeed = Math.random() * 15 + 20;
@@ -281,11 +291,36 @@ function spinWheel() {
             const selectedIndex = Math.floor(finalAngle / arcSize) % names.length;
 
             celebrate(names[selectedIndex]);
+
+            scrollbar.disabled = false;
+            scrollbar.classList.remove("disabled");
+
+            generateButton.disabled = false;
+            generateButton.classList.remove("disabled");
         }
     }
 
     requestAnimationFrame(animate);
 }
+
+function updateSectionCount(value) {
+    numberOfSections = parseInt(value, 10);
+    document.getElementById("section-count-display").textContent = value;
+
+    const placeholderNames = Array.from({length: numberOfSections }, (_, i) => `Participant ${i +1}`)
+    names = placeholderNames
+    if (numberOfSections > 1){
+     drawWheel(names);
+    } else {
+        // Clear the canvas to "remove" the wheel
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateSectionCount(numberOfSections);
+});
 
 // Modified event listeners
 spinButton.addEventListener("click", spinWheel);
@@ -307,5 +342,10 @@ document.getElementById("generate-wheel").addEventListener("click", () => {
 
     // Update names and draw wheel
     names = nameList;
-    if (names.length > 0) drawWheel(names);
+    if (names.length > 0) {
+        const scrollbar = document.getElementById("section-count-display");
+        scrollbar.disabled = true;
+        scrollbar.classList.add("disabled"); // Optional: Add a class for styling
+        drawWheel(names);
+    }
 });

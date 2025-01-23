@@ -3,7 +3,11 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f9f9f9;
+    background:
+        linear-gradient(to right, red, yellow, blue, orange, green, violet) no-repeat left/10vw,
+        linear-gradient(to left, red, yellow, blue, orange, green, violet) no-repeat right/10vw,
+        #f9f9f9;
+    min-height: 100vh;
     color: #333;
 }
 
@@ -13,30 +17,56 @@ body {
 }
 
 h1 {
-    color: #444;
+    background: linear-gradient(to right, red, yellow, blue, orange, green, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowGlow 3s infinite;
 }
 
 textarea {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
+    border-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet) 1;
     border-radius: 5px;
     font-size: 16px;
+    animation: rainbowGlow 3s infinite;
 }
-
 button {
-    background-color: #007bff;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    font-weight: 600;
+    padding: 10px 30px;
+    border: 4px solid transparent;
+    background-origin: border-box;
+    background-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+    cursor: pointer;
+    border-radius: 50px;
     cursor: pointer;
     font-size: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: rainbowGlow 3s infinite;
 }
 
 button:hover {
-    background-color: #0056b3;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+@keyframes rainbowGlow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 #wheel-container {
@@ -51,9 +81,37 @@ canvas {
     margin: 0 auto;
 }
 
-#result {
-    margin-top: 20px;
-    font-size: 18px;
+#slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#section-slider {
+    margin: 10px 0;
+    width: 200px;
+}
+
+#section-slider + label {
+    font-size: 16px;
+}
+
+input[type="range"].disabled {
+    opacity: 0.5; /* Make it look grayed out */
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+#separator {
+    margin-top: 0.2px;
+    margin-bottom: 10px;
+    font-size: 16px;
     font-weight: bold;
-    color: #007bff;
+    text-align: center;
+}
+
+/* Added spacing for the Generate Wheel button */
+#generate-wheel {
+    margin-bottom: 10px; /* Space between the Generate Wheel button and the separator */
 }

@@ -4,6 +4,7 @@ Scripts/
 env/
 venv/
 .venv/
+.idea/
 
 # Ignore Python cache files
 __pycache__/
